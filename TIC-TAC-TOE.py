@@ -1,6 +1,27 @@
 print("*" * 10, " Игра Крестики-нолики для двух игроков ", "*" * 10)
 
-field = list(range(1,10))
+field = list(range(1, 10))
+def main(field):
+    counter = 0
+    win = False
+    while not win:
+        game_field(field)
+        if counter % 2 == 0:
+           data_input("X")
+        else:
+           data_input("O")
+        counter += 1
+        if counter > 4:
+           vic = combinations_win(field)
+           if vic:
+              print(vic, "выиграл!")
+              win = True
+              break
+        if counter == 9:
+            print("Ничья!")
+            break
+
+
 
 def game_field(field):
    print("-" * 13)
@@ -8,10 +29,11 @@ def game_field(field):
       print("|", field[0+i*3], "|", field[1+i*3], "|", field[2+i*3], "|")
       print("-" * 13)
 
+
 def data_input(player_number):
    valid = False
    while not valid:
-      player_answer = input("Куда поставим " + player_number+"? ")
+      player_answer = input("Куда поставим " + player_number + "?")
       try:
          player_answer = int(player_answer)
       except:
@@ -33,26 +55,6 @@ def combinations_win(field):
           return field[each[0]]
    return False
 
-def main(field):
-    counter = 0
-    win = False
-    while not win:
-        game_field(field)
-        if counter % 2 == 0:
-           data_input("X")
-        else:
-           data_input("O")
-        counter += 1
-        if counter > 4:
-           vic = combinations_win(field)
-           if vic:
-              print(vic, "выиграл!")
-              win = True
-              break
-        if counter == 9:
-            print("Ничья!")
-            break
-    game_field(field)
 main(field)
 
 input("Нажмите Enter для выхода!")
